@@ -26,11 +26,15 @@ Explanation: The answer is "wke", with the length of 3.
 public class L3LengthOfLongestSubstring {
 
     public static int lengthOfLongestSubstring(String s) {
+        if(s.length() == 0 || s == null) {
+            return 0;
+        }
         int res = 0;
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0, j = 0; i < s.length(); i++) {
             if (map.containsKey(s.charAt(i))) {
-                j = Math.max(j, map.get(s.charAt(i) + 1));
+                Integer k = map.get(s.charAt(i)) + 1;
+                j = Math.max(j, k);
             }
             map.put(s.charAt(i), i);
             res = Math.max(res, i -j +1);
@@ -39,5 +43,7 @@ public class L3LengthOfLongestSubstring {
     }
 
     public static void main(String[] args) {
+        int res = lengthOfLongestSubstring("abcabcbb");
+        System.out.println(res);
     }
 }
