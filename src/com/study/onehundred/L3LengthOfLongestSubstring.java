@@ -1,7 +1,9 @@
 package com.study.onehundred;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /*
 * Given a string, find the length of the longest substring without repeating characters.
@@ -41,9 +43,24 @@ public class L3LengthOfLongestSubstring {
         }
         return res;
     }
+    public static int lengthOfLongestSubstringBySet(String s) {
+        if (s.length() == 0 || s == null) return 0;
+        int res = 0;
+        Set<Character> set = new HashSet<>();
+        for (int i = 0, j = 0; i < s.length(); i++) {
+            if (set.contains(s.charAt(i))) {
+                set.remove(s.charAt(j++));
+            }else {
+                set.add(s.charAt(i));
+                res = Math.max(res, set.size());
+            }
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
-        int res = lengthOfLongestSubstring("abcabcbb");
+        int res = lengthOfLongestSubstringBySet("pwwkew");
         System.out.println(res);
     }
 }
