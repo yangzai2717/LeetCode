@@ -47,17 +47,47 @@ public class L5LongestPalindrome {
 
     //动态规划法
     public static String longestPalindrome2(String s) {
-        int res = 0;
-        String restr = "";
+        int len = s.length();
+        if (s.length() < 2) {
+            return s;
+        }
 
-        return restr;
+        boolean[][] bp = new boolean[len][len];
+        for (int i = 0; i < s.length(); i++) {
+            bp[i][i] = true;
+        }
+
+        int maxLen = 1;
+        int start = 0;
+        for (int j = 1; j < s.length(); j++) {
+            for (int i = 0; i < j; i++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    if (j - i  < 3) {
+                        bp[i][j] = true;
+                    }else {
+                        bp[i][j] = bp[i+1][j-1];
+                    }
+                }else {
+                    bp[i][j] = false;
+                }
+
+                if (bp[i][j]) {
+                    int curLen = j - i + 1;
+                    if (curLen > maxLen) {
+                        maxLen = curLen;
+                        start = i;
+                    }
+                }
+            }
+        }
+        return s.substring(start, start + maxLen);
     }
 
     public static void main(String[] args) {
-        String s = "bbbbbbbbbbbbbbbbbbbbbb";
+        String s = "abba";
         long start = System.currentTimeMillis()/(1000);
-        longestPalindrome1(s);
+        System.out.println(longestPalindrome2(s));
         long end = System.currentTimeMillis()/(1000);
-        System.out.println(start - end);
+        System.out.println(end- start);
     }
 }
