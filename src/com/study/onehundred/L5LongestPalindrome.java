@@ -83,10 +83,44 @@ public class L5LongestPalindrome {
         return s.substring(start, start + maxLen);
     }
 
+    //中心扩展法
+    public static String longestPalindrome3(String s) {
+        if (s.length() < 2 ) {
+            return s;
+        }
+        int len = 0;
+        String res = s.substring(0,1);
+        for (int i = 0; i < s.length() - 1; i++) {
+            String s1 = isPalindromel(s, i, i);
+            String s2 = isPalindromel(s, i, i + 1);
+            String maxLenstr = s1.length() > s2.length() ? s1 : s2;
+            if (len < maxLenstr.length()) {
+                len = maxLenstr.length();
+                res = maxLenstr;
+            }
+        }
+        return res;
+    }
+
+    public static String isPalindromel(String s, int low, int right) {
+        int len = s.length();
+        int i = low;
+        int j = right;
+        while (i>=0 && j < len) {
+            if (s.charAt(i) == s.charAt(j)) {
+                i--;
+                j++;
+            }else {
+                break;
+            }
+        }
+        return s.substring(i+1, j);
+    }
+
     public static void main(String[] args) {
         String s = "abba";
         long start = System.currentTimeMillis()/(1000);
-        System.out.println(longestPalindrome2(s));
+        System.out.println(longestPalindrome3(s));
         long end = System.currentTimeMillis()/(1000);
         System.out.println(end- start);
     }
