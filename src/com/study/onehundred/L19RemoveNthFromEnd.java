@@ -26,7 +26,7 @@ public class L19RemoveNthFromEnd {
       first = first.next;
       second = second.next;
     }
-    second.next = first;
+    second.next = second.next.next;
     return temp.next;
   }
 
@@ -49,7 +49,7 @@ public class L19RemoveNthFromEnd {
     node3.next = node4;
     node4.next = node5;
 
-    ListNode listNode = removeNthFromEnd(node1, 2);
+    ListNode listNode = removeNthFromEnd(node5, 1);
     outList(listNode);
   }
 
