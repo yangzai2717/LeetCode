@@ -11,6 +11,13 @@ public class L22GenerateParenthesis {
 
   static List<String> res = new ArrayList<>();
   public static List<String> generateParenthesis(int n) {
+    if (n == 0) {
+      return res;
+    }
+    if (n == 1) {
+      res.add("()");
+      return res;
+    }
     dfs(n, n, "");
     return res;
   }
